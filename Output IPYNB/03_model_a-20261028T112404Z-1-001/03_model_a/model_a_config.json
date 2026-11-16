@@ -1,0 +1,60 @@
+{
+  "model": "Random Forest",
+  "features": [
+    "speed_bl_med",
+    "speed_bl_p25",
+    "stopped_ratio",
+    "occupancy",
+    "track_len_ratio",
+    "optflow_bl"
+  ],
+  "classes": [
+    "heavy",
+    "light",
+    "medium"
+  ],
+  "display": {
+    "light": "Lancar",
+    "medium": "Padat",
+    "heavy": "Macet"
+  },
+  "window_s": 5.0,
+  "step_s": 2.5,
+  "target_fps": 10,
+  "frame_width": 640,
+  "roi_top": 0.35,
+  "count_line_y": 0.7,
+  "det_conf": 0.2,
+  "imgsz": 640,
+  "detectors": {
+    "highway/barat": "yolov8s.pt (COCO), classes [2,3,5,7]",
+    "lalu lintas campuran Indonesia": "output/02_yolo/yolov8s_traffic7.pt, tanpa kelas person"
+  },
+  "cv_results": {
+    "Random Forest": {
+      "accuracy": 0.945,
+      "macro_f1": 0.91
+    },
+    "Logistic Regression": {
+      "accuracy": 0.937,
+      "macro_f1": 0.895
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.937,
+      "macro_f1": 0.892
+    },
+    "Baseline 1 fitur (kecepatan)": {
+      "accuracy": 0.878,
+      "macro_f1": 0.831
+    },
+    "Baseline mayoritas": {
+      "accuracy": 0.65,
+      "macro_f1": 0.263
+    }
+  },
+  "mapping_to_pems_level": {
+    "light": "Low",
+    "medium": "Moderate-High",
+    "heavy": "Severe"
+  }
+}

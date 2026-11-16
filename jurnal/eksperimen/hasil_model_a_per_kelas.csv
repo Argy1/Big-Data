@@ -1,0 +1,4 @@
+kelas,precision,recall,f1,support
+Lancar,0.9704,0.9939,0.982,165
+Padat,0.8667,0.8667,0.8667,45
+Macet,0.925,0.8409,0.881,44

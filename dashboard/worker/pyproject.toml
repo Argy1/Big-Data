@@ -1,0 +1,40 @@
+[project]
+name = "arus-worker"
+version = "0.1.0"
+description = "Arus speed layer: video -> YOLOv8 + ByteTrack -> fitur 5 dtk -> Model A -> Redis"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    # RTX 5050 (Blackwell) butuh PyTorch >= 2.7 dengan CUDA 12.8 (PLAN §3.1)
+    "torch>=2.7",
+    "torchvision>=0.22",
+    # Versi sama dengan Colab: ultralytics dari checkpoint yolov8s_traffic7.pt,
+    # scikit-learn dari _sklearn_version di model_a.joblib.
+    "ultralytics==8.4.191",
+    "scikit-learn==1.6.1",
+    "lap>=0.5.12",
+    "opencv-python-headless>=4.10",
+    "numpy>=2.0",
+    "pandas>=2.2",  # Model A was fitted on a DataFrame (feature names)
+    "joblib>=1.4",
+    "redis>=5.2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.3", "fakeredis>=2.26"]
+
+[tool.uv]
+package = false
+
+# Wheel cu128 dari index resmi PyTorch. Wheel cu121/cu124 tidak mendukung GPU Blackwell.
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

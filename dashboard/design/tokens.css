@@ -1,0 +1,124 @@
+/* =====================================================================
+   Arus — design tokens (SUMBER KEBENARAN warna untuk web/styles/tokens.css)
+   Diambil persis dari design/*.dc.html.
+   Tema GELAP = default (tanpa atribut / data-theme="dark").
+   Tema TERANG = <html data-theme="light">.
+   Nama variabel sama dengan yang dipakai di file desain, jadi bisa
+   dicocokkan 1:1 saat membaca source .dc.html.
+   ===================================================================== */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Permukaan */
+  --bg: #0B0F14;            /* latar halaman */
+  --nav: #0D1218;           /* sidebar */
+  --panel: #121821;         /* kartu / panel */
+  --inset: #0D1218;         /* kotak di dalam panel, grup toggle */
+  --raised: #18222F;        /* tombol segmen aktif (3D/2D), hover */
+  --glass: rgba(18, 24, 33, .9);  /* overlay di atas peta */
+  --border: #1E2733;
+  --border-strong: #263243; /* input, tombol outline */
+
+  /* Teks */
+  --text: #E7ECF3;
+  --text-2: #C9D2DE;
+  --muted: #93A0B4;         /* lolos 4.5:1 di atas --panel */
+  --nav-text: #B4BFCE;
+
+  /* Aksen & tautan (aksen default biru; lihat DARK_ACCENT di PLAN §9) */
+  --accent: #7AA2FF;
+  --link: #9DB8FF;
+  --accent-soft: #18222F;   /* latar menu aktif */
+  --accent-strong: #C7D6FF; /* teks menu aktif, tag */
+  --accent-line: #2A3646;
+  --row-hl: #172033;        /* baris "Model B" di tabel */
+  --on-accent: #0B0F14;     /* teks di atas tombol aksen / badge merah */
+  --on-solid: #0F1722;      /* teks di atas warna level pekat (chip kamera) */
+
+  /* Grafik */
+  --track: #1E2733;         /* rel bar */
+  --grid: #1E2733;          /* garis grid grafik */
+  --map-a: #0F151D;         /* latar peta */
+  --map-b: #111923;
+  --bar-low: #263243;       /* batang tren harian bernilai rendah */
+  --actual: var(--text);
+  --pred-1h: var(--accent);
+  --pred-3h: #C08BFF;
+  --profile: #7D8BA0;
+  --now-line: var(--lv-3);
+
+  /* Level kemacetan: 0 Lancar · 1 Melambat · 2 Padat · 3 Macet */
+  --lv-0: #43C59E;  --lv-1: #E8C547;  --lv-2: #F39A4A;  --lv-3: #EE5A5A;
+  --lv-0-tint: rgba(67, 197, 158, .16);  --lv-0-text: #7FE0C0;
+  --lv-1-tint: rgba(232, 197, 71, .16);  --lv-1-text: #F0D77A;
+  --lv-2-tint: rgba(243, 154, 74, .16);  --lv-2-text: #F8B880;
+  --lv-3-tint: rgba(238, 90, 90, .18);   --lv-3-text: #F59C9C;
+
+  /* Permukaan peringatan */
+  --warn-bg: #16130F;  --warn-line: #4A3420;        /* kartu prediksi >= Padat */
+  --alert-bg: #171214; --alert-line: #4A2528; --alert-item-line: #2E2226;  /* panel Tindakan / Peringatan */
+
+  /* Diagram Lambda (Analitik) */
+  --batch-line: #3A2E22;  --speed-line: #1F3A31;  --speed-bg: #0F1714;  --serve-bg: #10151F;
+
+  /* Bentuk & bayangan */
+  --radius-panel: 16px;  --radius-inner: 12px;  --radius-pill: 999px;
+  --shadow-panel: 0 1px 2px rgba(0, 0, 0, .3);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #F3F5F8;  --nav: #FFFFFF;  --panel: #FFFFFF;  --inset: #F6F8FB;  --raised: #FFFFFF;
+  --glass: rgba(255, 255, 255, .92);
+  --border: #E3E8EF;  --border-strong: #D5DCE6;
+
+  --text: #0F1722;  --text-2: #3A4556;  --muted: #5E6878;  --nav-text: #4A5568;
+
+  --accent: #3B5BDB;  --link: #3B5BDB;
+  --accent-soft: #EAF0FF;  --accent-strong: #2B44B0;  --accent-line: #D6DEF7;  --row-hl: #EEF2FF;
+  --on-accent: #FFFFFF;  --on-solid: #0F1722;
+
+  --track: #EDF1F6;  --grid: #E8EDF3;  --map-a: #F7F9FC;  --map-b: #F1F4F9;  --bar-low: #CBD5E1;
+  --pred-3h: #7C3AED;  --profile: #94A3B8;
+
+  --lv-0: #22A06B;  --lv-1: #E0B000;  --lv-2: #F08A24;  --lv-3: #E5484D;
+  --lv-0-tint: #DDF4EA;  --lv-0-text: #0E6B4D;
+  --lv-1-tint: #FBF0C9;  --lv-1-text: #7A5B00;
+  --lv-2-tint: #FDEBD8;  --lv-2-text: #9A4A0B;
+  --lv-3-tint: #FDE2E2;  --lv-3-text: #B42318;
+
+  --warn-bg: #FFF8F2;  --warn-line: #F2C6A5;
+  --alert-bg: #FFF7F6; --alert-line: #F5C9C4; --alert-item-line: #F1E1DE;
+
+  --batch-line: #F3DCC6;  --speed-line: #CFEBDD;  --speed-bg: #F3FBF7;  --serve-bg: #F5F7FF;
+
+  --shadow-panel: 0 1px 2px rgba(15, 23, 34, .04);
+}
+
+/* Overlay di atas video kamera: SAMA di kedua tema (video selalu gelap) */
+:root {
+  --overlay-chip: rgba(15, 23, 34, .85);   /* teks #FFF */
+  --overlay-roi: rgba(15, 23, 34, .5);     /* area di luar ROI */
+}
+
+/* ---------------------------------------------------------------------
+   Warna yang TIDAK bisa memakai CSS variable (dibaca di JavaScript):
+   - three.js (lihat PLAN §11):
+       dark : ground 0x111923, grid 0x2A3646/0x18222F, alas 0x2A3646,
+              hemi sky 0xC9D6E8 ground 0x0B0F14 (0,85), sun 0,9,
+              kolom 0x43C59E 0xE8C547 0xF39A4A 0xEE5A5A
+       light: ground 0xFFFFFF, grid 0xDBE2EB/0xE9EEF4, alas 0xC5CFDC,
+              hemi sky 0xFFFFFF ground 0xD9E1EC (1,0), sun 0,75,
+              kolom 0x22A06B 0xE0B000 0xF08A24 0xE5484D
+   - Heatmap ECharts (visualMap, stop = % padat/macet):
+       dark : 0 #16202B · 4 #2A4A60 · 12 #E8C547 · 22 #F39A4A · 33,1 #EE5A5A
+       light: 0 #EDF1F6 · 4 #FCEFC0 · 12 #F7C548 · 22 #F08A24 · 33,1 #E5484D
+   - Aksen per tema (tweak warna aksen):
+       light #3B5BDB -> dark #7AA2FF · light #0E7490 -> dark #3CC6DC
+       light #6D28D9 -> dark #B794FF
+   Cara membaca nilai CSS di JS: getComputedStyle(document.documentElement)
+   .getPropertyValue('--lv-3').trim()  — panggil ulang setiap tema berubah.
+   --------------------------------------------------------------------- */

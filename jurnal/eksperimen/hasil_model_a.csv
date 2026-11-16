@@ -1,0 +1,6 @@
+model,akurasi_rata2,akurasi_std,macroF1_rata2,macroF1_std,akurasi_config,macroF1_config
+Random Forest,0.9449,0.0299,0.9104,0.0561,0.945,0.91
+Logistic Regression,0.9371,0.0336,0.8951,0.0561,0.937,0.895
+Gradient Boosting,0.9369,0.0224,0.8925,0.0409,0.937,0.892
+Baseline 1 fitur (kecepatan),0.878,0.0482,0.8306,0.0388,0.878,0.831
+Baseline mayoritas,0.6496,0.0065,0.2625,0.0016,0.65,0.263

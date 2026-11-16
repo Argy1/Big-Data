@@ -1,0 +1,26 @@
+15:57:02  versi: lightgbm 4.6.0 numpy 2.1.3 pandas 2.2.3 | TEST_MODE False
+15:57:11  matriks 52,128 x 325 | 2017-01-01 00:00:00 -> 2017-06-30 23:55:00
+15:57:17  cuaca 4344 jam, total hujan 594 mm
+15:57:21  1h train: 2,500,000 baris
+15:57:22  1h val  :   965,900 baris
+15:57:22  1h test :   934,700 baris
+15:59:06  1h | Penuh                            |  718 pohon |   102 dtk | MAE semua 1.9931 | tidak rutin 7.0849
+15:59:06     REPRO 1h Semua: hasil 1.9931 vs config 1.9931 (selisih 0.0000)
+15:59:06     REPRO 1h Tidak rutin: hasil 7.0849 vs config 7.0849 (selisih 0.0000)
+16:00:53  1h | Tanpa cuaca                      |  726 pohon |   107 dtk | MAE semua 1.9994 | tidak rutin 7.0990
+16:02:31  1h | Tanpa tetangga                   |  602 pohon |    99 dtk | MAE semua 2.0005 | tidak rutin 7.1218
+16:03:46  1h | Tanpa lag & rolling              |  573 pohon |    75 dtk | MAE semua 2.0456 | tidak rutin 7.2953
+16:05:53  1h | Tanpa kalender                   |  858 pohon |   126 dtk | MAE semua 2.0106 | tidak rutin 7.1734
+16:08:49  1h | Tanpa riwayat hari/minggu lalu   | 1202 pohon |   176 dtk | MAE semua 2.0600 | tidak rutin 7.3241
+16:08:57  3h train: 2,500,000 baris
+16:08:57  3h val  :   963,300 baris
+16:08:57  3h test :   932,100 baris
+16:10:54  3h | Penuh                            |  738 pohon |   115 dtk | MAE semua 2.2134 | tidak rutin 4.5062
+16:10:54     REPRO 3h Semua: hasil 2.2134 vs config 2.2134 (selisih 0.0000)
+16:10:54     REPRO 3h Tidak rutin: hasil 4.5062 vs config 4.5062 (selisih 0.0000)
+16:12:46  3h | Tanpa cuaca                      |  717 pohon |   112 dtk | MAE semua 2.2285 | tidak rutin 4.5425
+16:14:28  3h | Tanpa tetangga                   |  633 pohon |   102 dtk | MAE semua 2.2187 | tidak rutin 4.5181
+16:15:57  3h | Tanpa lag & rolling              |  702 pohon |    89 dtk | MAE semua 2.2424 | tidak rutin 4.6197
+16:17:52  3h | Tanpa kalender                   |  811 pohon |   115 dtk | MAE semua 2.2455 | tidak rutin 4.5292
+16:21:57  3h | Tanpa riwayat hari/minggu lalu   | 1636 pohon |   245 dtk | MAE semua 2.3530 | tidak rutin 4.8451
+16:21:57  SELESAI

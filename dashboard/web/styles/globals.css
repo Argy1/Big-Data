@@ -1,0 +1,137 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Dark mode follows the data-theme attribute set by next-themes, not the OS (PLAN §9.1) */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Map every design token to a Tailwind color/utility (PLAN §9.3) */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-nav: var(--nav);
+  --color-panel: var(--panel);
+  --color-inset: var(--inset);
+  --color-raised: var(--raised);
+  --color-glass: var(--glass);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-muted: var(--muted);
+  --color-nav-text: var(--nav-text);
+
+  --color-accent: var(--accent);
+  --color-link: var(--link);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-line: var(--accent-line);
+  --color-row-hl: var(--row-hl);
+  --color-on-accent: var(--on-accent);
+  --color-on-solid: var(--on-solid);
+
+  --color-track: var(--track);
+  --color-grid: var(--grid);
+  --color-map-a: var(--map-a);
+  --color-map-b: var(--map-b);
+  --color-bar-low: var(--bar-low);
+  --color-actual: var(--actual);
+  --color-pred-1h: var(--pred-1h);
+  --color-pred-3h: var(--pred-3h);
+  --color-profile: var(--profile);
+  --color-now-line: var(--now-line);
+
+  --color-lv-0: var(--lv-0);
+  --color-lv-1: var(--lv-1);
+  --color-lv-2: var(--lv-2);
+  --color-lv-3: var(--lv-3);
+  --color-lv-0-tint: var(--lv-0-tint);
+  --color-lv-1-tint: var(--lv-1-tint);
+  --color-lv-2-tint: var(--lv-2-tint);
+  --color-lv-3-tint: var(--lv-3-tint);
+  --color-lv-0-text: var(--lv-0-text);
+  --color-lv-1-text: var(--lv-1-text);
+  --color-lv-2-text: var(--lv-2-text);
+  --color-lv-3-text: var(--lv-3-text);
+
+  --color-warn-bg: var(--warn-bg);
+  --color-warn-line: var(--warn-line);
+  --color-alert-bg: var(--alert-bg);
+  --color-alert-line: var(--alert-line);
+  --color-alert-item-line: var(--alert-item-line);
+
+  --color-batch-line: var(--batch-line);
+  --color-speed-line: var(--speed-line);
+  --color-speed-bg: var(--speed-bg);
+  --color-serve-bg: var(--serve-bg);
+
+  --color-overlay-chip: var(--overlay-chip);
+  --color-overlay-roi: var(--overlay-roi);
+
+  /* shadcn/ui semantic names -> Arus tokens (both themes follow automatically) */
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--panel);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--panel);
+  --color-popover-foreground: var(--text);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--on-accent);
+  --color-secondary: var(--raised);
+  --color-secondary-foreground: var(--text);
+  --color-muted-foreground: var(--muted);
+  --color-accent-foreground: var(--accent-strong);
+  --color-destructive: var(--lv-3);
+  --color-input: var(--border-strong);
+  --color-ring: var(--link);
+
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --radius-panel: var(--radius-panel);
+  --radius-inner: var(--radius-inner);
+  --shadow-panel: var(--shadow-panel);
+}
+
+@layer base {
+  html,
+  body {
+    background: var(--bg);
+    color: var(--text);
+  }
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    color: var(--link);
+  }
+  a:hover {
+    color: var(--accent-strong);
+  }
+  :where(button, a, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 2px;
+  }
+}
+
+/* MapLibre popup: our SensorTooltip already draws the card */
+.arus-popup .maplibregl-popup-content {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+}
+.arus-popup .maplibregl-popup-tip {
+  display: none;
+}
+
+@layer utilities {
+  .mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  /* Show content for one theme only, without waiting for JS (no flash on load). */
+  [data-theme="light"] .only-dark,
+  :root:not([data-theme="light"]) .only-light {
+    display: none;
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "horizons_steps": {
+    "1h": 12,
+    "3h": 36
+  },
+  "step_minutes": 5,
+  "features": [
+    "v_now",
+    "v_lag5m",
+    "v_lag15m",
+    "v_lag30m",
+    "v_lag60m",
+    "v_roll30m",
+    "v_roll60m",
+    "v_std60m",
+    "v_yesterday",
+    "v_lastweek",
+    "prof_target",
+    "dev_now",
+    "ratio_now",
+    "nb_ratio_now",
+    "hour_target",
+    "dow_target",
+    "weekend_target",
+    "holiday_target",
+    "lanes",
+    "vff",
+    "fwy",
+    "rain_now_mm",
+    "rain_3h_mm"
+  ],
+  "target": "speed(t+h) - profile(t+h)",
+  "level_thresholds_ratio": {
+    "Severe": "<0.4",
+    "High": "0.4-0.6",
+    "Moderate": "0.6-0.8",
+    "Low": ">=0.8"
+  },
+  "train": [
+    "2017-01-01 00:00:00",
+    "2017-05-01 00:00:00"
+  ],
+  "val": [
+    "2017-05-01 00:00:00",
+    "2017-06-01 00:00:00"
+  ],
+  "test": [
+    "2017-06-01 00:00:00",
+    "2017-06-30 23:55:00"
+  ],
+  "weather": true,
+  "holidays": [
+    "2017-01-02",
+    "2017-01-16",
+    "2017-02-20",
+    "2017-05-29"
+  ],
+  "best_iteration": {
+    "1h": 718,
+    "3h": 738
+  },
+  "test_metrics": [
+    {
+      "horizon": "1h",
+      "subset": "Semua",
+      "metode": "Persistence",
+      "n": 934700,
+      "MAE (mph)": 3.1413,
+      "RMSE (mph)": 7.1475,
+      "macro-F1 level": 0.5558,
+      "recall macet": 0.5992,
+      "precision macet": 0.5992
+    },
+    {
+      "horizon": "1h",
+      "subset": "Semua",
+      "metode": "Profil historis",
+      "n": 934700,
+      "MAE (mph)": 2.6385,
+      "RMSE (mph)": 5.1847,
+      "macro-F1 level": 0.586,
+      "recall macet": 0.6191,
+      "precision macet": 0.8373
+    },
+    {
+      "horizon": "1h",
+      "subset": "Semua",
+      "metode": "Model B",
+      "n": 934700,
+      "MAE (mph)": 1.9931,
+      "RMSE (mph)": 4.2788,
+      "macro-F1 level": 0.6558,
+      "recall macet": 0.7014,
+      "precision macet": 0.8505
+    },
+    {
+      "horizon": "1h",
+      "subset": "Tidak rutin",
+      "metode": "Persistence",
+      "n": 46351,
+      "MAE (mph)": 14.403,
+      "RMSE (mph)": 20.0021,
+      "macro-F1 level": 0.4203,
+      "recall macet": 0.7323,
+      "precision macet": 0.4576
+    },
+    {
+      "horizon": "1h",
+      "subset": "Tidak rutin",
+      "metode": "Profil historis",
+      "n": 46351,
+      "MAE (mph)": 10.1769,
+      "RMSE (mph)": 14.4425,
+      "macro-F1 level": 0.3985,
+      "recall macet": 0.4646,
+      "precision macet": 0.7928
+    },
+    {
+      "horizon": "1h",
+      "subset": "Tidak rutin",
+      "metode": "Model B",
+      "n": 46351,
+      "MAE (mph)": 7.0849,
+      "RMSE (mph)": 10.5827,
+      "macro-F1 level": 0.5503,
+      "recall macet": 0.6562,
+      "precision macet": 0.8406
+    },
+    {
+      "horizon": "3h",
+      "subset": "Semua",
+      "metode": "Persistence",
+      "n": 932100,
+      "MAE (mph)": 5.8412,
+      "RMSE (mph)": 11.9251,
+      "macro-F1 level": 0.3361,
+      "recall macet": 0.1852,
+      "precision macet": 0.1852
+    },
+    {
+      "horizon": "3h",
+      "subset": "Semua",
+      "metode": "Profil historis",
+      "n": 932100,
+      "MAE (mph)": 2.6423,
+      "RMSE (mph)": 5.1906,
+      "macro-F1 level": 0.586,
+      "recall macet": 0.6192,
+      "precision macet": 0.8373
+    },
+    {
+      "horizon": "3h",
+      "subset": "Semua",
+      "metode": "Model B",
+      "n": 932100,
+      "MAE (mph)": 2.2134,
+      "RMSE (mph)": 4.6519,
+      "macro-F1 level": 0.632,
+      "recall macet": 0.6785,
+      "precision macet": 0.8348
+    },
+    {
+      "horizon": "3h",
+      "subset": "Tidak rutin",
+      "metode": "Persistence",
+      "n": 46329,
+      "MAE (mph)": 20.9077,
+      "RMSE (mph)": 26.5963,
+      "macro-F1 level": 0.2551,
+      "recall macet": 0.612,
+      "precision macet": 0.1654
+    },
+    {
+      "horizon": "3h",
+      "subset": "Tidak rutin",
+      "metode": "Profil historis",
+      "n": 46329,
+      "MAE (mph)": 5.4667,
+      "RMSE (mph)": 9.5423,
+      "macro-F1 level": 0.4744,
+      "recall macet": 0.4963,
+      "precision macet": 0.8764
+    },
+    {
+      "horizon": "3h",
+      "subset": "Tidak rutin",
+      "metode": "Model B",
+      "n": 46329,
+      "MAE (mph)": 4.5062,
+      "RMSE (mph)": 8.0281,
+      "macro-F1 level": 0.5688,
+      "recall macet": 0.6107,
+      "precision macet": 0.849
+    }
+  ]
+}

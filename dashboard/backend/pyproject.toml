@@ -1,0 +1,40 @@
+[project]
+name = "arus-api"
+version = "0.1.0"
+description = "Arus serving layer: FastAPI + DuckDB atas batch views, replay Juni 2017"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "duckdb>=1.1,<2",
+    "pandas>=2.2",
+    "pyarrow>=18",
+    "redis>=5.2",
+    "sqlmodel>=0.0.22",
+    "python-multipart>=0.0.12",
+    "numpy>=2.0",
+    "joblib>=1.4",
+    # Model .joblib dibuat di Colab: versi HARUS sama (PLAN §3).
+    # scikit-learn 1.6.1 terbaca langsung dari _sklearn_version di model_a.joblib.
+    "scikit-learn==1.6.1",
+    # lightgbm: struktur pickle model_b cocok dengan 4.5.0/4.6.0 (bukan 4.7). Konfirmasi di Colab.
+    "lightgbm==4.6.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "httpx>=0.27",
+    "pytest-asyncio>=0.24",
+    "fakeredis>=2.26",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"

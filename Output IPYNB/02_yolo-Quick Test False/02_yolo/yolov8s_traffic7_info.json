@@ -1,0 +1,83 @@
+{
+  "model": "yolov8s_traffic7.pt",
+  "base": "yolov8s.pt",
+  "imgsz": 640,
+  "epochs_planned": 25,
+  "classes": [
+    "motorcycle",
+    "car",
+    "bus",
+    "truck",
+    "auto_rickshaw",
+    "nonmotorized",
+    "person"
+  ],
+  "class_mapping": {
+    "Bike": "motorcycle",
+    "Car": "car",
+    "Bus": "bus",
+    "Truck": "truck",
+    "Mini-Truck": "truck",
+    "Cng": "auto_rickshaw",
+    "Rickshaw": "nonmotorized",
+    "Cycle": "nonmotorized",
+    "People": "person"
+  },
+  "test_metrics": {
+    "precision": 0.8234,
+    "recall": 0.7999,
+    "mAP50": 0.8788,
+    "mAP50-95": 0.581
+  },
+  "per_class": [
+    {
+      "kelas": "motorcycle",
+      "precision": 0.822,
+      "recall": 0.765,
+      "mAP50": 0.86,
+      "mAP50-95": 0.494
+    },
+    {
+      "kelas": "car",
+      "precision": 0.885,
+      "recall": 0.855,
+      "mAP50": 0.932,
+      "mAP50-95": 0.658
+    },
+    {
+      "kelas": "bus",
+      "precision": 0.85,
+      "recall": 0.857,
+      "mAP50": 0.921,
+      "mAP50-95": 0.637
+    },
+    {
+      "kelas": "truck",
+      "precision": 0.669,
+      "recall": 0.69,
+      "mAP50": 0.755,
+      "mAP50-95": 0.556
+    },
+    {
+      "kelas": "auto_rickshaw",
+      "precision": 0.844,
+      "recall": 0.848,
+      "mAP50": 0.902,
+      "mAP50-95": 0.618
+    },
+    {
+      "kelas": "nonmotorized",
+      "precision": 0.852,
+      "recall": 0.828,
+      "mAP50": 0.912,
+      "mAP50-95": 0.592
+    },
+    {
+      "kelas": "person",
+      "precision": 0.842,
+      "recall": 0.757,
+      "mAP50": 0.87,
+      "mAP50-95": 0.513
+    }
+  ]
+}

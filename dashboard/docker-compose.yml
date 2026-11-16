@@ -1,0 +1,75 @@
+# Arus: satu perintah demo ->  docker compose up --build
+# Sebelumnya jalankan sekali:  python scripts/copy_data.py
+name: arus
+# restart: unless-stopped -> after a Docker Desktop / laptop restart the stack comes back by itself
+
+services:
+  redis:
+    restart: unless-stopped
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    restart: unless-stopped
+    build: ./backend
+    environment:
+      DATA_DIR: /data
+      REDIS_URL: redis://redis:6379/0
+      REPLAY_START: ${REPLAY_START:-2017-06-07T16:45:00}
+      TICK_SECONDS: ${TICK_SECONDS:-5}
+      CORS_ORIGINS: http://localhost:3000,http://localhost:3001
+      APP_DB: /appdata/arus.sqlite
+      UPLOAD_DIR: /appdata/uploads
+    volumes:
+      # Batch views are read-only for the API (PLAN §4)
+      - ./data:/data:ro
+      # SQLite (decisions, cameras) + uploaded videos. A plain folder (not a named volume) so a worker
+      # running outside Docker (README) reads the same uploads.
+      - ./appdata:/appdata
+    ports: ["8000:8000"]
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # Speed layer: video -> YOLOv8 + ByteTrack -> Model A -> Redis. Uses the NVIDIA GPU when Docker
+  # Desktop exposes it; otherwise falls back to CPU. Alternative: run it on Windows (README).
+  worker:
+    restart: unless-stopped
+    build: ./worker
+    environment:
+      DATA_DIR: /data
+      UPLOAD_DIR: /appdata/uploads
+      REDIS_URL: redis://redis:6379/0
+      WORKER_DEVICE: ${WORKER_DEVICE:-}
+    volumes:
+      - ./data:/data:ro
+      - ./appdata:/appdata:ro
+    depends_on:
+      redis:
+        condition: service_healthy
+    deploy:
+      resources:
+        reservations:
+          devices: [{ driver: nvidia, count: 1, capabilities: [gpu] }]
+
+  web:
+    restart: unless-stopped
+    build:
+      context: ./web
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+        NEXT_PUBLIC_WS_URL: ws://localhost:8000/ws/live
+    ports: ["3001:3000"]
+    depends_on:
+      api:
+        condition: service_healthy

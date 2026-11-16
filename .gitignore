@@ -1,0 +1,44 @@
+# === .gitignore tingkat root: Projek Akhir Teknologi Big Data ===
+
+# Data mentah (read-only, ukurannya > 1,8 GB, di luar batas GitHub). Lihat CLAUDE.md §2 aturan 8
+Dataset/
+dashboard/data/
+
+# Folder sementara bekas analisis dataset (CLAUDE.md §3: abaikan)
+_check/
+
+# Aturan CLAUDE.md §2 aturan 8: jangan commit file besar ke git
+*.zip
+*.mp4
+*.avi
+*.mov
+*.pt
+*.joblib
+*.parquet
+*.onnx
+*.h5
+*.safetensors
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Node / Next.js
+node_modules/
+.next/
+
+# Env & rahasia lokal
+.env
+.env.local
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+.idea/
+.vscode/

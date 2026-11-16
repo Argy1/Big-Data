@@ -1,0 +1,33 @@
+# Data & model besar (disalin oleh scripts/copy_data.py, jangan di-commit)
+data/
+appdata/
+worker/models/*.pt
+worker/models/*.joblib
+*.parquet
+*.joblib
+*.pt
+*.mp4
+*.avi
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+web/next-env.d.ts
+web/test-results/
+web/playwright-report/
+*.tsbuildinfo
+
+# Env & OS
+.env
+.env.local
+.DS_Store
+Thumbs.db

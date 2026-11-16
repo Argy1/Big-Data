@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Arus · Kamera Live</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0F14}
+body:has(.arus[data-theme="light"]){background:#F3F5F8}
+a{color:var(--link)}a:hover{color:var(--accent-strong)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.arus{color-scheme:dark;--bg:#0B0F14;--nav:#0D1218;--panel:#121821;--inset:#0D1218;--raised:#18222F;--glass:rgba(18,24,33,.9);--border:#1E2733;--border-strong:#263243;--text:#E7ECF3;--text-2:#C9D2DE;--muted:#93A0B4;--nav-text:#B4BFCE;--link:#9DB8FF;--accent-soft:#18222F;--accent-strong:#C7D6FF;--accent-line:#2A3646;--row-hl:#172033;--track:#1E2733;--grid:#1E2733;--map-a:#0F151D;--map-b:#111923;--bar-low:#263243;--profile:#7D8BA0;--pred-3h:#C08BFF;--on-accent:#0B0F14;--on-solid:#0F1722;--lv-0:#43C59E;--lv-1:#E8C547;--lv-2:#F39A4A;--lv-3:#EE5A5A;--lv-0-tint:rgba(67,197,158,.16);--lv-1-tint:rgba(232,197,71,.16);--lv-2-tint:rgba(243,154,74,.16);--lv-3-tint:rgba(238,90,90,.18);--lv-0-text:#7FE0C0;--lv-1-text:#F0D77A;--lv-2-text:#F8B880;--lv-3-text:#F59C9C;--warn-bg:#16130F;--warn-line:#4A3420;--alert-bg:#171214;--alert-line:#4A2528;--alert-item-line:#2E2226;--batch-line:#3A2E22;--speed-line:#1F3A31;--speed-bg:#0F1714;--serve-bg:#10151F}
+.arus[data-theme="light"]{color-scheme:light;--bg:#F3F5F8;--nav:#FFFFFF;--panel:#FFFFFF;--inset:#F6F8FB;--raised:#FFFFFF;--glass:rgba(255,255,255,.92);--border:#E3E8EF;--border-strong:#D5DCE6;--text:#0F1722;--text-2:#3A4556;--muted:#5E6878;--nav-text:#4A5568;--link:#3B5BDB;--accent-soft:#EAF0FF;--accent-strong:#2B44B0;--accent-line:#D6DEF7;--row-hl:#EEF2FF;--track:#EDF1F6;--grid:#E8EDF3;--map-a:#F7F9FC;--map-b:#F1F4F9;--bar-low:#CBD5E1;--profile:#94A3B8;--pred-3h:#7C3AED;--on-accent:#FFFFFF;--on-solid:#0F1722;--lv-0:#22A06B;--lv-1:#E0B000;--lv-2:#F08A24;--lv-3:#E5484D;--lv-0-tint:#DDF4EA;--lv-1-tint:#FBF0C9;--lv-2-tint:#FDEBD8;--lv-3-tint:#FDE2E2;--lv-0-text:#0E6B4D;--lv-1-text:#7A5B00;--lv-2-text:#9A4A0B;--lv-3-text:#B42318;--warn-bg:#FFF8F2;--warn-line:#F2C6A5;--alert-bg:#FFF7F6;--alert-line:#F5C9C4;--alert-item-line:#F1E1DE;--batch-line:#F3DCC6;--speed-line:#CFEBDD;--speed-bg:#F3FBF7;--serve-bg:#F5F7FF}
+</style>
+</helmet>
+<div class="arus" data-theme="{{theme}}" style="min-height: 100vh; background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; display: flex; flex-wrap: wrap; align-items: stretch">
+
+  <nav aria-label="Navigasi utama" style="flex: 1 1 232px; max-width: 100%; box-sizing: border-box; padding: 28px 20px; border-right: 1px solid var(--border); display: flex; flex-direction: column; gap: 28px; background: var(--nav)">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><rect x="0.5" y="0.5" width="35" height="35" rx="10" fill="var(--row-hl)" stroke="var(--accent-line)"></rect><path d="M7 22c4 0 4-8 8-8s4 8 8 8 4-8 6-8" fill="none" stroke="var(--lv-0)" stroke-width="2.4" stroke-linecap="round"></path><path d="M7 27c4 0 4-4 8-4s4 4 8 4 4-4 6-4" fill="none" stroke="var(--lv-3)" stroke-width="2.4" stroke-linecap="round"></path></svg>
+      <div>
+        <div style="font-size: 20px; font-weight: 800; letter-spacing: -0.02em">Arus</div>
+        <div style="font-size: 12px; color: var(--muted)">Traffic Ops · Lambda</div>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; color: var(--nav-text); text-decoration: none; font-weight: 500; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"></rect><rect x="14" y="3" width="7" height="5" rx="1.5"></rect><rect x="14" y="12" width="7" height="9" rx="1.5"></rect><rect x="3" y="16" width="7" height="5" rx="1.5"></rect></svg>Ringkasan Kota</a>
+      <a href="Kamera.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--accent-strong); text-decoration: none; font-weight: 700; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="6" width="14" height="12" rx="2"></rect><path d="M16.5 10.5 21.5 7.5v9l-5-3"></path></svg>Kamera Live</a>
+      <a href="Prediksi.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; color: var(--nav-text); text-decoration: none; font-weight: 500; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 17l5-5 4 3 7-8"></path><path d="M15 7h4v4"></path></svg>Prediksi Sensor</a>
+      <a href="Analitik.dc.html" style="display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; color: var(--nav-text); text-decoration: none; font-weight: 500; font-size: 14px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Analitik &amp; Model</a>
+    </div>
+    <button type="button" onClick="{{toggleTheme}}" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--inset); color: var(--text); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer">
+      <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+      <sc-if value="{{isLight}}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"></path></svg></sc-if>
+      <span>{{themeLabel}}</span>
+    </button>
+    <div style="display: flex; flex-direction: column; gap: 10px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--inset)">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted)">Alur speed layer</div>
+      <sc-for list="{{steps}}" as="st" hint-placeholder-count="6">
+        <div style="display: flex; align-items: center; gap: 10px; font-size: 13px">
+          <span class="mono" style="width: 22px; height: 22px; border-radius: 6px; background: var(--accent-soft); color: var(--accent-strong); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex: none">{{st.n}}</span>
+          <div><div style="font-weight: 600">{{st.t}}</div><div style="font-size: 12px; color: var(--muted)">{{st.d}}</div></div>
+        </div>
+      </sc-for>
+    </div>
+  </nav>
+
+  <main style="flex: 999 1 640px; min-width: 0; box-sizing: border-box; padding: 28px clamp(16px, 3vw, 40px) 48px; display: flex; flex-direction: column; gap: 24px">
+
+    <header style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted)">Speed layer · Model A (nowcast)</div>
+        <h1 style="margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -0.025em">Kamera live</h1>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+        <label class="sr-only" for="pilih-kamera">Pilih kamera</label>
+        <select id="pilih-kamera" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--border-strong); background: var(--panel); color: var(--text); font: inherit; font-size: 14px">
+          <option>Kamera uji · jalan tol (video_uji.mp4)</option>
+          <option>Kamera lokal · [NAMA LOKASI]</option>
+        </select>
+        <button type="button" style="height: 44px; padding: 0 18px; border-radius: 12px; border: none; background: {{accent}}; color: var(--on-accent); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"></path></svg>Unggah video</button>
+      </div>
+    </header>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+      <section aria-label="Video kamera" style="flex: 999 1 560px; min-width: 0; padding: 16px; border: 1px solid var(--border); border-radius: 16px; background: var(--panel); box-shadow: 0 1px 2px rgba(15, 23, 34, 0.04); display: flex; flex-direction: column; gap: 14px">
+        <div style="position: relative; border-radius: 12px; overflow: hidden; background: var(--text)">
+          <img src="/_blob/5d0eeb296ff9e2c28b9db1ca766831a9" alt="Frame kamera jalan tol: antrean mobil dua arah, setiap kendaraan diberi kotak deteksi YOLOv8 dan nomor ID tracking" style="display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover">
+          <div style="position: absolute; left: 0; right: 0; top: 0; height: 35%; background: rgba(15, 23, 34, 0.5); border-bottom: 1px dashed #FFFFFF"></div>
+          <span style="position: absolute; right: 12px; top: calc(35% - 30px); padding: 3px 8px; border-radius: 6px; background: rgba(15, 23, 34, 0.85); color: #FFF; font-size: 11px">Di luar ROI · objek terlalu kecil</span>
+          <div style="position: absolute; left: 0; right: 0; top: 70%; height: 0; border-top: 2px solid var(--lv-1)"></div>
+          <span class="mono" style="position: absolute; left: 12px; top: calc(70% + 6px); padding: 3px 8px; border-radius: 6px; background: var(--lv-1); color: var(--on-solid); font-size: 11px; font-weight: 700">GARIS HITUNG</span>
+          <div style="position: absolute; left: 12px; top: 12px; display: flex; gap: 8px; align-items: center">
+            <span style="padding: 6px 14px; border-radius: 999px; background: {{cur.c}}; color: var(--on-solid); font-size: 14px; font-weight: 800; letter-spacing: 0.04em">{{cur.label}} · {{cur.conf}}</span>
+            <span class="mono" style="padding: 6px 10px; border-radius: 999px; background: rgba(15, 23, 34, 0.85); color: #FFF; font-size: 12px">jendela {{cur.range}}</span>
+          </div>
+          <span style="position: absolute; right: 12px; top: 12px; display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(15, 23, 34, 0.85); font-size: 12px; font-weight: 700; color: #FFF"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--lv-3)"></span>LIVE · 10 fps</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; font-size: 13px">
+            <span style="font-weight: 600">Timeline Model A · jendela 5 detik, geser 2,5 detik</span>
+            <span style="color: var(--muted)">Klik jendela untuk melihat fiturnya</span>
+          </div>
+          <div role="group" aria-label="Jendela waktu" style="display: flex; gap: 4px">
+            <sc-for list="{{wins}}" as="w" hint-placeholder-count="7">
+              <button type="button" aria-pressed="{{w.pressed}}" aria-label="Jendela {{w.range}}, {{w.label}}" onClick="{{w.pick}}" class="mono" style="flex: 1 1 0; min-height: 44px; border-radius: 8px; border: 2px solid {{w.border}}; background: {{w.c}}; color: var(--on-solid); cursor: pointer; font: inherit; font-size: 11px; font-weight: 700">{{w.short}}</button>
+            </sc-for>
+          </div>
+          <div class="mono" style="display: flex; justify-content: space-between; font-size: 11px; color: var(--muted)"><span>00:00</span><span>00:05</span><span>00:10</span><span>00:15</span><span>00:20</span></div>
+        </div>
+      </section>
+
+      <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+        <section aria-label="Keputusan Model A" style="padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--panel); box-shadow: 0 1px 2px rgba(15, 23, 34, 0.04); display: flex; flex-direction: column; gap: 16px">
+          <div style="font-size: 13px; color: var(--muted); font-weight: 500">Keputusan Model A · jendela {{cur.range}}</div>
+          <div style="display: flex; align-items: center; gap: 14px">
+            <span style="width: 56px; height: 56px; border-radius: 16px; background: {{cur.tint}}; display: flex; align-items: center; justify-content: center; flex: none"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="{{cur.tc}}" stroke-width="2.2" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"></path><path d="M12 10v4M12 17h.01"></path></svg></span>
+            <div><div style="font-size: 32px; font-weight: 800; letter-spacing: -0.02em; color: {{cur.tc}}">{{cur.label}}</div><div style="font-size: 13px; color: var(--muted)">Random Forest · 6 fitur bebas kalibrasi</div></div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <sc-for list="{{cur.probs}}" as="p" hint-placeholder-count="3">
+              <div style="display: flex; align-items: center; gap: 10px; font-size: 13px">
+                <span style="width: 58px">{{p.k}}</span>
+                <div style="flex: 1 1 auto; height: 10px; border-radius: 5px; background: var(--track)"><div style="width: {{p.w}}%; height: 10px; border-radius: 5px; background: {{p.c}}"></div></div>
+                <span class="mono" style="width: 52px; text-align: right">{{p.v}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="padding: 12px 14px; border-radius: 10px; background: var(--inset); font-size: 12px; color: var(--text-2); line-height: 1.55">Probabilitas mendekati 100% bukan kepastian: Random Forest cenderung terlalu yakin. Di UCSD (4 split resmi) akurasinya 94,5%, macro-F1 0,910.</div>
+        </section>
+
+        <section aria-label="Detektor" style="padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--panel); box-shadow: 0 1px 2px rgba(15, 23, 34, 0.04); display: flex; flex-direction: column; gap: 14px">
+          <h2 style="margin: 0; font-size: 17px; font-weight: 700">Detektor kendaraan</h2>
+          <div role="group" aria-label="Pilih detektor" style="display: flex; padding: 4px; gap: 4px; border-radius: 12px; background: var(--bg); border: 1px solid var(--border)">
+            <sc-for list="{{dets}}" as="d" hint-placeholder-count="3">
+              <button type="button" aria-pressed="{{d.pressed}}" onClick="{{d.pick}}" style="flex: 1 1 0; min-height: 36px; border-radius: 9px; border: none; cursor: pointer; font: inherit; font-size: 13px; font-weight: 700; background: {{d.bg}}; color: {{d.fg}}">{{d.label}}</button>
+            </sc-for>
+          </div>
+          <div style="display: flex; gap: 10px">
+            <div style="flex: 1 1 0; padding: 12px; border-radius: 10px; background: var(--inset)"><div style="font-size: 11px; color: var(--muted)">YOLOv8s COCO</div><div class="mono" style="font-size: 20px; font-weight: 600; margin-top: 2px">23,7</div><div style="font-size: 11px; color: var(--muted)">deteksi/frame</div></div>
+            <div style="flex: 1 1 0; padding: 12px; border-radius: 10px; background: var(--inset)"><div style="font-size: 11px; color: var(--muted)">Fine-tuned (Roboflow)</div><div class="mono" style="font-size: 20px; font-weight: 600; margin-top: 2px">1,0</div><div style="font-size: 11px; color: var(--muted)">deteksi/frame</div></div>
+          </div>
+          <div style="font-size: 13px; color: var(--text-2); line-height: 1.55">{{detNote}}</div>
+        </section>
+      </div>
+    </div>
+
+    <section aria-label="Fitur lalu lintas" style="padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--panel); box-shadow: 0 1px 2px rgba(15, 23, 34, 0.04); display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; justify-content: space-between">
+        <h2 style="margin: 0; font-size: 17px; font-weight: 700">Fitur lalu lintas · jendela {{cur.range}}</h2>
+        <span style="font-size: 13px; color: var(--muted)">Penanda = median tiap kelas di data latih UCSD</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px">
+        <sc-for list="{{feats}}" as="f" hint-placeholder-count="3">
+          <div style="flex: 1 1 240px; min-width: 0; padding: 16px; border-radius: 12px; background: var(--inset); display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+              <div><div style="font-size: 13px; font-weight: 600">{{f.name}}</div><div class="mono" style="font-size: 11px; color: var(--muted)">{{f.key}}</div></div>
+              <div class="mono" style="font-size: 22px; font-weight: 600">{{f.val}}</div>
+            </div>
+            <div style="position: relative; height: 34px">
+              <div style="position: absolute; left: 0; right: 0; top: 12px; height: 8px; border-radius: 4px; background: var(--border)"></div>
+              <div style="position: absolute; left: 0; top: 12px; height: 8px; width: {{f.w}}%; border-radius: 4px; background: {{accent}}"></div>
+              <sc-for list="{{f.marks}}" as="m" hint-placeholder-count="3">
+                <span style="position: absolute; left: {{m.x}}%; top: 4px; width: 3px; height: 24px; margin-left: -1px; border-radius: 2px; background: {{m.c}}"></span>
+              </sc-for>
+            </div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: var(--text-2)">
+              <sc-for list="{{f.marks}}" as="m" hint-placeholder-count="3">
+                <span style="display: flex; align-items: center; gap: 5px"><span style="width: 8px; height: 8px; border-radius: 2px; background: {{m.c}}"></span>{{m.k}} {{m.v}}</span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--text-2)">
+        <span><span class="mono" style="font-weight: 600">{{cur.det}}</span> kendaraan/frame di ROI</span>
+        <span><span class="mono" style="font-weight: 600">{{cur.flow}}</span> kendaraan/menit melewati garis hitung</span>
+        <span style="color: var(--muted)">Dua angka ini tergantung luas pandang kamera, jadi tidak dipakai Model A.</span>
+      </div>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","default":"dark","options":["dark","light"]},"accent":{"editor":"color","default":"#3B5BDB","options":["#3B5BDB","#0E7490","#6D28D9"]},"$preview":{"width":1440,"height":1380}}'>
+const LV = {
+  light:  { k: 'Lancar', c: 'var(--lv-0)', tint: 'var(--lv-0-tint)', tc: 'var(--lv-0-text)' },
+  medium: { k: 'Padat',  c: 'var(--lv-2)', tint: 'var(--lv-2-tint)', tc: 'var(--lv-2-text)' },
+  heavy:  { k: 'Macet',  c: 'var(--lv-3)', tint: 'var(--lv-3-tint)', tc: 'var(--lv-3-text)' }
+};
+const WINS = [
+  { t0: 0.0,  t1: 5.0,  lvl: 'heavy', p: [0.0, 0.002, 0.998], v: 0.334, st: 0.95,  occ: 0.336, det: 12.88, flow: 36 },
+  { t0: 2.5,  t1: 7.5,  lvl: 'heavy', p: [0.0, 0.002, 0.998], v: 0.331, st: 0.95,  occ: 0.299, det: 12.66, flow: 36 },
+  { t0: 5.0,  t1: 10.0, lvl: 'heavy', p: [0.0, 0.002, 0.998], v: 0.311, st: 0.842, occ: 0.317, det: 13.34, flow: 60 },
+  { t0: 7.5,  t1: 12.5, lvl: 'heavy', p: [0.0, 0.002, 0.998], v: 0.298, st: 0.85,  occ: 0.352, det: 13.28, flow: 60 },
+  { t0: 10.0, t1: 15.0, lvl: 'heavy', p: [0.0, 0.004, 0.996], v: 0.232, st: 0.909, occ: 0.358, det: 13.56, flow: 72 },
+  { t0: 12.5, t1: 17.5, lvl: 'heavy', p: [0.0, 0.002, 0.998], v: 0.271, st: 0.913, occ: 0.358, det: 14.7,  flow: 60 },
+  { t0: 15.0, t1: 20.0, lvl: 'heavy', p: [0.0, 0.002, 0.998], v: 0.291, st: 0.95,  occ: 0.353, det: 13.74, flow: 36 }
+];
+const MED = { v: [2.21, 1.01, 0.54], st: [0.0, 0.10, 0.46], occ: [0.02, 0.11, 0.16] };
+const fmt = (v, d) => v.toFixed(d).replace('.', ',');
+const pct = (v) => fmt(v * 100, 1) + '%';
+const ss = (t) => '00:' + String(Math.floor(t)).padStart(2, '0');
+const DARK_ACCENT = { '#3B5BDB': '#7AA2FF', '#0E7490': '#3CC6DC', '#6D28D9': '#B794FF' };
+class Component extends DCLogic {
+  renderVals() {
+    const theme = (this.state && this.state.t) || this.props.theme || 'dark';
+    const accentL = this.props.accent ?? '#3B5BDB';
+    const accent = theme === 'dark' ? (DARK_ACCENT[accentL] || accentL) : accentL;
+    const th = { theme, isDark: theme === 'dark', isLight: theme === 'light', themeLabel: theme === 'dark' ? 'Mode terang' : 'Mode gelap', toggleTheme: () => this.setState({ t: theme === 'dark' ? 'light' : 'dark' }) };
+    const w = (this.state && this.state.w != null) ? this.state.w : WINS.length - 1;
+    const det = (this.state && this.state.d != null) ? this.state.d : 0;
+    const x = WINS[w];
+    const names = ['light', 'medium', 'heavy'];
+    const top = x.p.indexOf(Math.max(...x.p));
+    const L = LV[x.lvl];
+    const cur = {
+      label: L.k.toUpperCase(), c: L.c, tint: L.tint, tc: L.tc, conf: pct(x.p[top]), range: ss(x.t0) + '–' + ss(x.t1),
+      probs: names.map((n, i) => ({ k: LV[n].k, c: LV[n].c, w: Math.max(1, x.p[i] * 100).toFixed(1), v: pct(x.p[i]) })),
+      det: fmt(x.det, 1), flow: x.flow
+    };
+    const wins = WINS.map((y, i) => ({
+      c: LV[y.lvl].c, label: LV[y.lvl].k, range: ss(y.t0) + '–' + ss(y.t1), short: ss(y.t1).slice(3),
+      pressed: i === w ? 'true' : 'false', border: i === w ? 'var(--text)' : 'transparent',
+      pick: () => this.setState({ w: i })
+    }));
+    const mk = (vals, max, f) => vals.map((v, i) => ({ k: LV[names[i]].k, c: LV[names[i]].c, x: Math.min(100, v / max * 100).toFixed(1), v: f(v) }));
+    const feats = [
+      { name: 'Kecepatan median', key: 'speed_bl_med', val: fmt(x.v, 2) + ' bl/s', w: Math.min(100, x.v / 2.5 * 100).toFixed(1), marks: mk(MED.v, 2.5, (v) => fmt(v, 2)) },
+      { name: 'Kendaraan hampir berhenti', key: 'stopped_ratio', val: pct(x.st), w: (x.st * 100).toFixed(1), marks: mk(MED.st, 1, (v) => fmt(v * 100, 0) + '%') },
+      { name: 'Okupansi jalan', key: 'occupancy', val: pct(x.occ), w: Math.min(100, x.occ / 0.4 * 100).toFixed(1), marks: mk(MED.occ, 0.4, (v) => fmt(v * 100, 0) + '%') }
+    ];
+    const DET = ['Otomatis', 'COCO', 'Fine-tuned'];
+    const NOTES = [
+      'Dipilih otomatis: COCO, karena mendeteksi jauh lebih banyak kendaraan di video ini. Model fine-tuned mengalami domain shift di jalan tol Barat.',
+      'YOLOv8s bawaan (COCO): car, motorcycle, bus, truck. Cocok untuk jalan tol dan kamera tinggi bergaya Barat.',
+      'YOLOv8s fine-tuned Roboflow (7 kelas: motor, mobil, bus, truk, bajaj, becak/sepeda, orang). Cocok untuk lalu lintas campuran ala Indonesia, mAP50 0,879.'
+    ];
+    const dets = DET.map((label, i) => ({ label, pressed: i === det ? 'true' : 'false', bg: i === det ? accent : 'transparent', fg: i === det ? 'var(--on-accent)' : 'var(--text-2)', pick: () => this.setState({ d: i }) }));
+    const steps = [
+      { n: 1, t: 'Video 10 fps', d: 'lebar 640 px' }, { n: 2, t: 'YOLOv8 deteksi', d: 'conf 0,2 · imgsz 640' },
+      { n: 3, t: 'ByteTrack', d: 'ID unik per kendaraan' }, { n: 4, t: 'Fitur per jendela', d: '5 dtk, geser 2,5 dtk' },
+      { n: 5, t: 'Model A', d: 'Lancar / Padat / Macet' }, { n: 6, t: 'Dashboard', d: 'push via WebSocket' }
+    ];
+    return { ...th, accent, cur, wins, feats, dets, detNote: NOTES[det], steps };
+  }
+}
+</script>
+</body>
+</html>
