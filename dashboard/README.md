@@ -2,7 +2,9 @@
 
 Dashboard untuk *city planner*: kondisi lalu lintas **saat ini** dari 325 sensor jalan tol Bay Area, **prediksi 1 jam dan 3 jam** per sensor, dan **kamera** yang dianalisis real-time. Proyek Akhir Teknologi Big Data (D4 TRPL, Sekolah Vokasi IPB). Rencana lengkap ada di [PLAN.md](PLAN.md).
 
-> **Status & progres lengkap** (yang sudah/belum, keputusan teknis, checklist presentasi): lihat [PROGRESS.md](PROGRESS.md).
+> **Status & progres lengkap** (yang sudah/belum, keputusan teknis, checklist presentasi, log perubahan): lihat [PROGRESS.md](PROGRESS.md).
+>
+> **Panduan langkah demi langkah untuk AI agent** (dan untuk yang baru pertama kali menjalankan proyek): lihat [../AGENTS.md](../AGENTS.md).
 
 > **Mode replay.** Tidak ada sensor IoT live. Data Juni 2017 diputar ulang sebagai "sekarang" (default Rab, 7 Jun 2017 16:45). Badge **REPLAY** di dashboard menandai hal ini.
 
@@ -12,6 +14,7 @@ Prasyarat: Docker Desktop (WSL 2), Python 3.x (hanya untuk menyalin data). GPU N
 
 ```bash
 # 1. Salin data & model dari ../Output IPYNB dan ../Dataset ke data/ (sekali saja, ±500 MB, dicek MD5)
+#    ../Dataset dan file besar di ../Output IPYNB TIDAK ada di GitHub: minta ke pemilik proyek.
 python scripts/copy_data.py
 
 # 2. Semua layanan: redis, api, worker, web
@@ -20,9 +23,12 @@ docker compose up --build
 
 | Alamat | Isi |
 |---|---|
-| http://localhost:3000 | Dashboard (tema gelap default; tombol **Mode terang** di sidebar) |
+| http://localhost:3001 | Dashboard, mode Docker (tema gelap default; tombol **Mode terang** di sidebar) |
+| http://localhost:3000 | Dashboard, mode dev tanpa Docker (`pnpm dev`) |
 | http://localhost:8000/docs | Dokumentasi API interaktif |
 | http://localhost:8000/api/health | Status data, Redis, model, dan worker (perangkat GPU/CPU) |
+
+Langkah verifikasi lengkap dan cara mengatasi masalah umum ada di [../AGENTS.md](../AGENTS.md) §3 dan §6.
 
 Build pertama lama karena image worker berisi PyTorch + CUDA (±8,8 GB). Setelah itu `docker compose up` cukup beberapa detik.
 
@@ -93,6 +99,8 @@ cd web     && pnpm e2e          # Playwright (stack harus jalan): alur demo, tem
                                 # screenshot 4 halaman × 2 tema + axe WCAG 2.1 AA
 cd web     && pnpm lighthouse   # skor aksesibilitas Lighthouse, kedua tema (target ≥ 90)
 ```
+
+`pnpm e2e` dan `pnpm lighthouse` default ke `http://localhost:3000`. Untuk stack Docker, set `E2E_BASE_URL=http://localhost:3001`. Setelah `pnpm e2e`, jalankan `python scripts/reset_demo.py`.
 
 Screenshot hasil E2E tersimpan di `web/tests/e2e/__screenshots__/`.
 

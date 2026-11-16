@@ -2,11 +2,12 @@
 
 > Dokumen ini mencatat **semua yang sudah dan belum dikerjakan**, supaya pekerjaan bisa dilanjutkan
 > walau riwayat chat Claude Code hilang. Baca bersama:
+> - `../AGENTS.md`: **panduan menjalankan langkah demi langkah** untuk AI agent (dan manusia);
 > - `../CLAUDE.md`: aturan kerja;
 > - `PLAN.md`: rencana dan kontrak;
 > - `README.md`: cara pakai.
 >
-> Terakhir diperbarui: **29 Oktober 2026**.
+> Terakhir diperbarui: **16 November 2026**. Perubahan sejak 29 Oktober ada di §10.
 
 ---
 
@@ -27,15 +28,15 @@
 
 **Kesimpulan:** semua fase wajib selesai dan terverifikasi. Dashboard siap dipresentasikan.
 
-Hasil test terakhir (29 Okt 2026):
+Hasil test (diuji ulang **16 Nov 2026** bila kolom "16 Nov" terisi; lainnya dari 29 Okt):
 
-| Test | Hasil |
-|---|---|
-| backend pytest | 66 lulus |
-| worker pytest | 6 lulus |
-| web Vitest | 18 lulus |
-| Playwright E2E | 15/15 lulus |
-| Lighthouse aksesibilitas | 100 di 4 halaman × 2 tema |
+| Test | 29 Okt | 16 Nov 2026 |
+|---|---|---|
+| backend pytest | 66 lulus | **66 lulus** |
+| worker pytest | 6 lulus | **6 lulus** (CPU, sekitar 2 menit) |
+| web Vitest | 18 lulus | **18 lulus** |
+| Playwright E2E | 15/15 lulus | belum diuji ulang (Docker Desktop tidak aktif saat verifikasi) |
+| Lighthouse aksesibilitas | 100 di 4 halaman × 2 tema | belum diuji ulang |
 
 ---
 
@@ -50,6 +51,7 @@ cd "D:\Semester 5\Teknologi Big data\Projek Akhir\dashboard"
 docker compose up -d                 # menyalakan redis, api, worker, web di background
 ```
 
+- Panduan lengkap langkah demi langkah (termasuk verifikasi & troubleshooting): `../AGENTS.md` §3.
 - Pertama kali, atau setelah kode berubah: `docker compose up -d --build`. Build worker bisa makan ±20–25 menit karena berisi PyTorch + CUDA.
 - Semua service memakai `restart: unless-stopped`, jadi **setelah laptop atau Docker Desktop restart, stack hidup lagi sendiri**. Tunggu ±30 detik.
 - Folder `data/` (518 MB) harus sudah ada. Kalau hilang, jalankan sekali: `python scripts/copy_data.py`.
@@ -58,10 +60,13 @@ docker compose up -d                 # menyalakan redis, api, worker, web di bac
 
 | Alamat | Isi |
 |---|---|
-| **http://localhost:3000** | **Dashboard (frontend Next.js)**: Ringkasan · Kamera · Prediksi · Analitik |
-| http://localhost:3000/kamera | Kamera live (video beranotasi YOLO + keputusan Model A) |
-| http://localhost:3000/prediksi/403225 | Contoh halaman Prediksi (Airport Blvd) |
-| http://localhost:3000/analitik | Analitik & kinerja model |
+| **http://localhost:3001** | **Dashboard, mode Docker** (`docker-compose.yml`: `"3001:3000"`). Ringkasan · Kamera · Prediksi · Analitik |
+| http://localhost:3001/kamera | Kamera live (video beranotasi YOLO + keputusan Model A) |
+| http://localhost:3001/prediksi/403225 | Contoh halaman Prediksi (Airport Blvd) |
+| http://localhost:3001/analitik | Analitik & kinerja model |
+| http://localhost:3000 | Dashboard, mode dev tanpa Docker (`pnpm dev`, lihat `../AGENTS.md` §4). Port 3000 juga dipakai E2E secara default |
+
+> **Catatan port (16 Nov 2026):** dokumen lama menulis `localhost:3000` untuk mode Docker. Yang berlaku sekarang adalah **3001** untuk Docker (sejak `docker-compose.yml` diubah 3 Nov 2026). CORS API sudah mengizinkan keduanya. Alasan perubahan itu belum tercatat; lihat §10.
 | **http://localhost:8000/docs** | **Backend FastAPI**: dokumentasi API interaktif (Swagger), bisa dicoba langsung |
 | http://localhost:8000/api/health | Status lengkap: data, Redis, 5 model, worker (GPU/CPU) |
 | `ws://localhost:8000/ws/live` | WebSocket (dipakai dashboard, tidak dibuka manual) |
@@ -217,7 +222,8 @@ Yang diuji dan **tidak** bermasalah:
    - `"worker":{"cameras_live":1,"device":"GPU · RTX 5050"}`.
 2. Jalankan `python scripts/reset_demo.py`. Hasilnya harus "Siap demo." (0 keputusan, hanya CAM-01, replay dijeda di Rab 7 Jun 2017 16:45).
    **Wajib setelah `pnpm e2e`**, karena test alur demo mencatat keputusan sungguhan.
-3. Buka http://localhost:3000 (tema gelap). Untuk proyektor, tombol **Mode terang** ada di sidebar.
+   Per 3 Nov 2026, `appdata/uploads/` masih berisi dua video unggahan (`cam-02-…`, `cam-03-…`) dari sesi uji. Jalankan reset ini sebelum demo.
+3. Buka http://localhost:3001 (mode Docker; tema gelap). Untuk proyektor, tombol **Mode terang** ada di sidebar.
 4. Ikuti skenario demo ±5 menit di `README.md` (bagian "Skenario demo").
 5. Kalau internet mati: peta 2D otomatis memakai peta skematis, dan peta 3D tetap jalan.
 
@@ -242,7 +248,10 @@ Angka yang akan muncul saat demo (Rab 7 Jun 2017 16:45):
 | Uji restart Docker Desktop sungguhan | Belum dicoba | Restart policy sudah aktif. Restart Docker Desktop sekali lalu cek `/api/health` setelah ±30 dtk |
 | Hapus kamera unggahan dari UI | Tidak ada tombol | Lewat `python scripts/reset_demo.py` atau `DELETE /api/cameras/{id}` |
 | Video unggahan rusak | Kamera berstatus "error" dan worker mencoba ulang tiap 10 dtk | Hapus dengan cara di atas |
-| Git | Folder ini **bukan** repo git | Belum ada commit/backup versi. Pertimbangkan `git init` (`data/`, `appdata/`, model, video sudah di `.gitignore`) |
+| Git | **Sudah** repo git sejak 16 Nov 2026 di root `Projek Akhir/`, di-push ke https://github.com/Argy1/Big-Data.git (branch `main`, commit awal `2eb662b`) | Dataset dan file besar sengaja tidak di-commit (lihat §10) |
+| Port Docker `3001` | `docker-compose.yml` memetakan web ke 3001, sedangkan dokumen lama menulis 3000 | Konfirmasi apakah perubahan ini disengaja. Tidak ada catatan alasannya |
+| Verifikasi live stack Docker | Belum diulang sejak 29 Okt. Docker Desktop tidak aktif saat verifikasi 16 Nov | Jalankan §3 `AGENTS.md`, lalu `pnpm e2e` (dengan `E2E_BASE_URL=http://localhost:3001`) dan `pnpm lighthouse` |
+| Dukungan GPU di `docker-compose.yml` | Blok `deploy` GPU di service worker belum diuji di mesin tanpa GPU NVIDIA | Lihat `../AGENTS.md` §6 |
 
 Keterbatasan yang disengaja (PLAN §15, jelaskan jujur saat presentasi):
 - **tidak ada sensor live**, data Juni 2017 diputar ulang (badge REPLAY);
@@ -270,12 +279,34 @@ Keterbatasan yang disengaja (PLAN §15, jelaskan jujur saat presentasi):
   - `pnpm e2e` (stack harus jalan, lalu jalankan `reset_demo.py`)
   - `pnpm lighthouse`
 - Jangan pernah mengubah `../Dataset`, `../Notebooks`, `../Output IPYNB` (read-only).
+- **Docker Desktop harus aktif** sebelum `docker compose`. Kalau belum, muncul `failed to connect to the docker API`.
+- **`../Dataset` dan file besar di `../Output IPYNB` tidak ada di GitHub.** Clone baru tidak bisa menjalankan `copy_data.py` sampai dua folder itu disalin manual dari pemilik proyek (lihat `../AGENTS.md` §3 langkah 2).
+- Tes E2E dan Lighthouse default ke `localhost:3000`. Untuk stack Docker, set `E2E_BASE_URL=http://localhost:3001`.
 
-## 9. Cara melanjutkan dengan Claude Code
+## 9. Cara melanjutkan dengan Claude Code atau AI agent lain
 
 Contoh prompt untuk sesi baru:
 
 ```
-Baca CLAUDE.md, dashboard/PROGRESS.md, dan dashboard/PLAN.md. Semua fase 0–6 sudah selesai.
+Baca CLAUDE.md, AGENTS.md, dashboard/PROGRESS.md, dan dashboard/PLAN.md. Semua fase 0–6 sudah selesai.
 Kerjakan Fase 7 saja, lalu berhenti dan laporkan.
 ```
+
+Prompt siap pakai lainnya (menjalankan, tes, reset demo) ada di `../AGENTS.md` §9.
+
+---
+
+## 10. Log perubahan sejak 29 Oktober 2026
+
+Urutan dari yang terbaru. Setiap entri menyebut bukti yang bisa dicek di file.
+
+| Tanggal | Perubahan | Bukti / catatan |
+|---|---|---|
+| **16 Nov 2026** | Dokumentasi diperbarui: `PROGRESS.md` (ini), `README.md`, `CLAUDE.md`, dan panduan baru `AGENTS.md` di root | `AGENTS.md` berisi langkah 0–8 untuk menjalankan dan verifikasi |
+| **16 Nov 2026** | Folder root `Projek Akhir/` menjadi repo git dengan `.gitignore` root. Di-push ke `https://github.com/Argy1/Big-Data.git` (branch `main`, commit `2eb662b`, 279 file, ±33 MB) | Dikecualikan: `Dataset/`, `_check/`, `dashboard/data/`, dan `.zip`, `.mp4`, `.avi`, `.pt`, `.joblib`, `.parquet` (CLAUDE.md §2.8) |
+| **16 Nov 2026** | Verifikasi ulang: backend 66 lulus, worker 6 lulus, web 18 lulus. E2E dan Lighthouse belum diulang (Docker tidak aktif) | Perintah ada di `AGENTS.md` §5 |
+| **15 Nov 2026** | Naskah JATI direvisi. Daftar pustaka menjadi 37 entri (26 terbit 2021–2026). Laporan akhir (.docx dan .pdf) dibuat | `jurnal/referensi/daftar_referensi_terverifikasi.md`, `jurnal/naskah/`, `laporan/` |
+| **3 Nov 2026** | `docker-compose.yml` terakhir diubah. Isinya sekarang memetakan web ke port host **3001** dan CORS mengizinkan 3001. Alasan perubahan belum tercatat | Lihat catatan port di §2.2 |
+| **3 Nov 2026** | `appdata/uploads/` berisi dua video unggahan dari sesi uji. Belum dihapus (`reset_demo.py` belum dijalankan) | Lihat §6 checklist |
+| **2 Nov 2026** | Eksperimen jurnal selesai di `jurnal/eksperimen/`: ablation Model B, MAE per jam, validasi silang Model A, dan gambar. Reproduksi Model B cocok dengan `model_b_config.json` dalam toleransi 0,02 mph | `jurnal/eksperimen/LOG.md` |
+| **29 Okt 2026** | Fase 0–6 dan perbaikan 8 bug sebelum presentasi (§4) | §4 |

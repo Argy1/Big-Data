@@ -21,7 +21,9 @@ Ini Projek Akhir mata kuliah Teknologi Big Data (Semester 5, D4 TRPL, Sekolah Vo
 - ✅ Semua training selesai di Google Colab (notebook 01–04). Hasilnya ada di `Output IPYNB/`.
 - ✅ Desain dashboard selesai: 4 halaman, **tema gelap (default) + tema terang**, peta 3D three.js. Ada di `dashboard/design/`.
 - ✅ **Dashboard selesai: Fase 0–6 + perbaikan bug sebelum presentasi** (29 Okt 2026). Fase 7 (opsional) belum dikerjakan.
-- 📄 **Baca `dashboard/PROGRESS.md` dulu**: status lengkap, cara menjalankan, keputusan teknis, yang belum dikerjakan, dan jebakan lingkungan.
+- ✅ **Diuji ulang 16 Nov 2026**: backend 66 lulus, worker 6 lulus, web 18 lulus. Repo git di GitHub: https://github.com/Argy1/Big-Data.git.
+- 📄 **Baca `dashboard/PROGRESS.md` dulu**: status lengkap, cara menjalankan, keputusan teknis, yang belum dikerjakan, dan jebakan lingkungan. Log perubahan sejak 29 Okt ada di §10.
+- 🧭 **Panduan menjalankan langkah demi langkah: `AGENTS.md`** (di root). Untuk AI agent apa pun.
 
 ## 2. Aturan kerja (wajib)
 
@@ -44,12 +46,16 @@ Ini Projek Akhir mata kuliah Teknologi Big Data (Semester 5, D4 TRPL, Sekolah Vo
 
 ```
 Projek Akhir/
-├── CLAUDE.md                ← file ini
-├── Dataset/                 ← DATA MENTAH (read-only)
+├── CLAUDE.md                ← file ini (aturan kerja)
+├── AGENTS.md                ← panduan menjalankan langkah demi langkah untuk AI agent
+├── .gitignore               ← repo git (GitHub: Argy1/Big-Data), mengecualikan Dataset/ dan file besar
+├── Dataset/                 ← DATA MENTAH (read-only, TIDAK di GitHub)
 ├── Notebooks/               ← 4 notebook Colab yang sudah dijalankan (read-only, referensi logika)
 ├── Output IPYNB/            ← HASIL training dari Colab (read-only, sumber data & model dashboard)
 ├── _check/                  ← file sementara bekas analisis dataset. Abaikan.
-└── dashboard/               ← TEMPAT KERJA: PLAN.md + design/ (+ kode yang akan kamu buat)
+├── jurnal/                  ← naskah JATI, daftar pustaka, eksperimen jurnal (lihat AGENTS.md §8)
+├── laporan/                 ← laporan akhir (.docx, .pdf)
+└── dashboard/               ← TEMPAT KERJA: aplikasi, PLAN.md, PROGRESS.md, README.md, design/
 ```
 
 ### 3.1 `Dataset/`: data mentah
@@ -119,5 +125,7 @@ Nama folder `03_model_a-20261028T112404Z-1-001` dan `04_model_b-20261028T122005Z
 Fase 0–6 sudah selesai. Untuk sesi baru:
 
 ```
-Baca CLAUDE.md, dashboard/PROGRESS.md, dan dashboard/PLAN.md. Lanjutkan dari bagian "Yang BELUM dikerjakan" di PROGRESS.md.
+Baca CLAUDE.md, AGENTS.md, dashboard/PROGRESS.md, dan dashboard/PLAN.md. Lanjutkan dari bagian "Yang BELUM dikerjakan" di PROGRESS.md.
 ```
+
+Untuk menjalankan dashboard dari nol, ikuti `AGENTS.md` §3. Jangan memulai dari ingatan.
